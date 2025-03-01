@@ -3,6 +3,9 @@ package com.example.krompirica.Line;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +16,8 @@ import java.util.stream.StreamSupport;
 @RestController
 @RequestMapping("/api/v1/line")
 @AllArgsConstructor
+//@EnableMethodSecurity(prePostEnabled = true)
+//@PreAuthorize("isAuthorised()")
 public class LineController {
     private LineService service;
     private ModelMapper mapper;
