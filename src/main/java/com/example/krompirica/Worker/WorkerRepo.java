@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 
 @Repository
 public interface WorkerRepo extends JpaRepository<WorkerEntity,Integer> {
@@ -17,5 +19,7 @@ public interface WorkerRepo extends JpaRepository<WorkerEntity,Integer> {
                     "WHERE u.username = ?1"
     )
     Boolean selectExistsUsername(String username);
+
     WorkerEntity findByUsername(String username);
+
 }

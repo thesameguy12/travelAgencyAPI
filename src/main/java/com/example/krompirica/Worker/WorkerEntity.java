@@ -24,11 +24,11 @@ public class WorkerEntity {
     @Column(name="username", nullable = false)
     private String username;
 
-    @Column(name="passwordHash", nullable = false)
-    private byte[] passwordHash;
+    @Column(name="storedHash", nullable = false)
+    private byte[] storedHash;
 
-    @Column(name="passwordSalt", nullable = false)
-    private byte[] passwordSalt;
+    @Column(name="storedSalt", nullable = false)
+    private byte[] storedSalt;
 
     public WorkerEntity(String username){
         this.username=username;
