@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LineDto {
+public class LineResponseDto {
     private Integer id;
-    private Integer cityIdTo;
-    private Integer cityIdFrom;
+    private CityDto cityIdTo;
+    private CityDto cityIdFrom;
     private Integer oneWayTicketPrice;
     private Integer twoWayTicketPrice;
     private Integer time;

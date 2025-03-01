@@ -16,19 +16,35 @@ import java.util.stream.StreamSupport;
 public class LineController {
     private LineService service;
     private ModelMapper mapper;
-    private LineEntity convertToEntity(LineDto dto){return mapper.map(dto,LineEntity.class);}
-    private LineDto convertToDto(LineEntity entity){return mapper.map(entity,LineDto.class);}
+    private LineEntity convertToEntity(LineResponseDto dto){return mapper.map(dto,LineEntity.class);}
+    private LineEntity convertToEntity(LineRequestDto dto){return mapper.map(dto,LineEntity.class);}
+    private LineResponseDto convertToResponseDto(LineEntity entity){return mapper.map(entity,LineResponseDto.class);}
+    private LineRequestDto convertToRequestDto(LineEntity entity){return mapper.map(entity,LineRequestDto.class);}
 
     @GetMapping
-    public List<LineDto> getLines(){
+    public List<LineResponseDto> getLines(){
         var lines= StreamSupport.stream(service.getLines().spliterator(),false).collect(Collectors.toList());
 
-        return  lines.stream().map(this::convertToDto).collect(Collectors.toList());
+        return  lines.stream().map(this::convertToResponseDto).collect(Collectors.toList());
+    }
+    @GetMapping("/{id}")
+    public LineResponseDto getLineById(@PathVariable Integer id){
+        return convertToResponseDto(service.getLineById(id));
     }
 
     @PostMapping
-    public LineDto postLine (@Valid @RequestBody LineDto dto){
-        System.out.println(dto);
-        return convertToDto(service.postLine(convertToEntity(dto)));
+    public LineResponseDto postLine (@Valid @RequestBody LineRequestDto dto){
+
+        return convertToResponseDto(service.postLine(convertToEntity(dto)));
+    }
+
+    @PutMapping("/{id}")
+    public LineResponseDto putLine(@PathVariable Integer id,@Valid @RequestBody LineRequestDto dto){
+        return convertToResponseDto(service.updateLineById(id,convertToEntity(dto)));
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteLine(@PathVariable Integer id){
+        return service.deleteLineById(id);
     }
 }
