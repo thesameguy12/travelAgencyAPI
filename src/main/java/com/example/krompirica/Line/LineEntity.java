@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "line")
+
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "line")
 public class LineEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
