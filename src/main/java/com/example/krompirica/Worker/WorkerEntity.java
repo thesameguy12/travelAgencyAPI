@@ -1,5 +1,6 @@
 package com.example.krompirica.Worker;
 
+import com.example.krompirica.Role.RoleEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +30,9 @@ public class WorkerEntity {
 
     @Column(name="storedSalt", nullable = false)
     private byte[] storedSalt;
+
+    @Column(name="role_id", nullable = false)
+    private Integer role;
 
     public WorkerEntity(String username){
         this.username=username;

@@ -32,6 +32,8 @@ public class AuthenticateController {
             System.out.println(req.getUsername()+" "+req.getPassword());
         }catch (BadCredentialsException e){
             throw new Exception("Incorrect username or password",e);
+        }catch (Exception e) {
+            throw new Exception("Incorrect username or password", e);
         }
         var userDetails=userDetailsService.loadUserByUsername(worker.getUsername());
         System.out.println(userDetails);

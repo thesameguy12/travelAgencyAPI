@@ -17,7 +17,7 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/api/v1/line")
 @AllArgsConstructor
 //@EnableMethodSecurity(prePostEnabled = true)
-//@PreAuthorize("isAuthorised()")
+//@PreAuthorize("isAuthenticated()")
 public class LineController {
     private LineService service;
     private ModelMapper mapper;

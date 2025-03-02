@@ -35,9 +35,7 @@ public class WorkerService {
         return md.digest(password.getBytes(StandardCharsets.UTF_8));
     }
     public WorkerEntity findByUsername(String username){
-        if(repo.findByUsername(username)==null){
-            return new WorkerEntity();
-        }
+
         return repo.findByUsername(username);
     }
     public List<WorkerEntity> getAllWorkers(){
