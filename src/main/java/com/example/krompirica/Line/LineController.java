@@ -16,8 +16,8 @@ import java.util.stream.StreamSupport;
 @RestController
 @RequestMapping("/api/v1/line")
 @AllArgsConstructor
-//@EnableMethodSecurity(prePostEnabled = true)
-//@PreAuthorize("isAuthenticated()")
+@EnableMethodSecurity(prePostEnabled = true)
+@PreAuthorize("isAuthenticated()")
 public class LineController {
     private LineService service;
     private ModelMapper mapper;
@@ -25,6 +25,7 @@ public class LineController {
     private LineEntity convertToEntity(LineRequestDto dto){return mapper.map(dto,LineEntity.class);}
     private LineResponseDto convertToResponseDto(LineEntity entity){return mapper.map(entity,LineResponseDto.class);}
     private LineRequestDto convertToRequestDto(LineEntity entity){return mapper.map(entity,LineRequestDto.class);}
+
 
     @GetMapping
     public List<LineResponseDto> getLines(){
@@ -36,18 +37,18 @@ public class LineController {
     public LineResponseDto getLineById(@PathVariable Integer id){
         return convertToResponseDto(service.getLineById(id));
     }
-
+    @PreAuthorize("hasAuthority('1') or hasAuthority('2')")
     @PostMapping
     public LineResponseDto postLine (@Valid @RequestBody LineRequestDto dto){
 
         return convertToResponseDto(service.postLine(convertToEntity(dto)));
     }
-
+    @PreAuthorize("hasAuthority('1') or hasAuthority('2')")
     @PutMapping("/{id}")
     public LineResponseDto putLine(@PathVariable Integer id,@Valid @RequestBody LineRequestDto dto){
         return convertToResponseDto(service.updateLineById(id,convertToEntity(dto)));
     }
-
+    @PreAuthorize("hasAuthority('1') or hasAuthority('2')")
     @DeleteMapping("/{id}")
     public String deleteLine(@PathVariable Integer id){
         return service.deleteLineById(id);

@@ -37,7 +37,8 @@ public class AuthenticateController {
         }
         var userDetails=userDetailsService.loadUserByUsername(worker.getUsername());
         System.out.println(userDetails);
-        var jwt=jwtTokenUtil.generateToken(userDetails);
+        var jwt=jwtTokenUtil.generateToken(userDetails,worker.getRole().getId());
+
         return new AuthenticationResponce(jwt);
     }
 }

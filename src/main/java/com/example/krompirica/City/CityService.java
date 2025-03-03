@@ -23,6 +23,7 @@ public class CityService {
         return repo.findAll();
     }
     public CityEntity getCityById(Integer id){
+        findOrThrow(id);
         return repo.getReferenceById(id);
     }
     public String addCity(CityEntity city){

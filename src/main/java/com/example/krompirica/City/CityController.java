@@ -17,14 +17,15 @@ import java.util.stream.StreamSupport;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/city")
-//@EnableMethodSecurity(prePostEnabled = true)
-//@PreAuthorize("isAuthenticated()")
+@EnableMethodSecurity(prePostEnabled = true)
+@PreAuthorize("isAuthenticated()")
 public class CityController {
     private final CityService service;
     private final ModelMapper mapper;
     private CityEntity convertToEntity(CityDto dto){return mapper.map(dto,CityEntity.class);}
     private CityDto convertToDto(CityEntity entity){return mapper.map(entity,CityDto.class);}
 
+    @PreAuthorize("hasAuthority('1') or hasAuthority('2')")
     @PostMapping
     public String postCity(@Valid @RequestBody CityDto dto){
         return service.addCity(convertToEntity(dto));
@@ -39,13 +40,13 @@ public class CityController {
     public CityDto getOneCity(@PathVariable Integer id){
         return convertToDto(service.getCityById(id));
     }
-
+    @PreAuthorize("hasAuthority('1') or hasAuthority('2')")
     @PutMapping("/{id}")
     public CityDto putCity(@PathVariable Integer id,@Valid @RequestBody CityDto dto){
         if(!id.equals(dto.getId())) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"A city by the id "+id+" was not found.");
         return convertToDto(service.updateCity(id,convertToEntity(dto)));
     }
-
+    @PreAuthorize("hasAuthority('1') or hasAuthority('2')")
     @DeleteMapping("/{id}")
     public String deleteCity(@PathVariable Integer id){
         return service.deleteCity(id);

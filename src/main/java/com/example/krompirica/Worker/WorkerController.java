@@ -10,8 +10,10 @@ import lombok.NoArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
@@ -22,6 +24,8 @@ import java.util.stream.StreamSupport;
 @RestController
 @RequestMapping("/admin/user")
 @AllArgsConstructor
+@EnableMethodSecurity(prePostEnabled = true)
+@PreAuthorize("isAuthenticated() and hasAuthority('1')")
 public class WorkerController {
     private WorkerService service;
     private final ModelMapper mapper;

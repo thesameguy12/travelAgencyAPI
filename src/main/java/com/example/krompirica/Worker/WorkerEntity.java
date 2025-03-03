@@ -31,8 +31,9 @@ public class WorkerEntity {
     @Column(name="storedSalt", nullable = false)
     private byte[] storedSalt;
 
-    @Column(name="role_id", nullable = false)
-    private Integer role;
+    @ManyToOne
+    @JoinColumn(name="roleId",referencedColumnName = "id",nullable = false)
+    private RoleEntity role;
 
     public WorkerEntity(String username){
         this.username=username;

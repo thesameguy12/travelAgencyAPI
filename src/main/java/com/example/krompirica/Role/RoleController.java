@@ -12,8 +12,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/role")
 @AllArgsConstructor
-//@EnableMethodSecurity(prePostEnabled = true)
-//@PreAuthorize("isAuthenticated()")
+@EnableMethodSecurity(prePostEnabled = true)
+@PreAuthorize("isAuthenticated() and hasAuthority('1')")
 public class RoleController {
     private final RoleService service;
 

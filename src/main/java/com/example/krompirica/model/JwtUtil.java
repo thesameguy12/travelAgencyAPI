@@ -21,7 +21,9 @@ public class JwtUtil {
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
-
+    public Integer extractRoleId(String token){
+        return extractAllClaims(token).get("roleId", Integer.class);
+    }
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
@@ -43,8 +45,9 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetails userDetails,Integer roleId) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("roleId", roleId);
         return createToken(claims, userDetails.getUsername());
     }
 

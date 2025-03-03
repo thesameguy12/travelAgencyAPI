@@ -33,5 +33,15 @@ public class ReservationService {
         repo.save(entity);
         return "Added reservation.";
     }
+    public String putReservation(Integer id,ReservationEntity entity){
+        findOrThrow(id);
+        repo.save(entity);
+        return "Altered reservation with id "+id;
+    }
+    public String deleteReservation(Integer id){
+        findOrThrow(id);
+        repo.deleteById(id);
+        return "Deleted reservation with id "+id;
+    }
 
 }
