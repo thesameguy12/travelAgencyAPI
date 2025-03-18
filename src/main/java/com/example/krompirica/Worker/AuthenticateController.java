@@ -4,14 +4,12 @@ import com.example.krompirica.Worker.services.ApplicationUserDetailsService;
 import com.example.krompirica.model.AuthenticationRequest;
 import com.example.krompirica.model.AuthenticationResponce;
 import com.example.krompirica.model.JwtUtil;
+import io.jsonwebtoken.Claims;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -40,5 +38,9 @@ public class AuthenticateController {
         var jwt=jwtTokenUtil.generateToken(userDetails,worker.getRole().getId());
 
         return new AuthenticationResponce(jwt);
+    }
+    @GetMapping("/checkToken/{token}")
+    public Boolean checkToken(@RequestParam String token){
+        return jwtTokenUtil.isTokenValid(token);
     }
 }

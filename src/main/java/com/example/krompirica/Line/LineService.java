@@ -36,4 +36,7 @@ public class LineService {
         repo.deleteById(id);
         return "Deleted line by id "+id;
     }
+    public List<LineEntity> getLineByCityFromTo(Integer cityIdFrom,Integer cityIdTo){
+        return repo.getLineByCityFromTo(cityIdFrom,cityIdTo);
+    }
 }

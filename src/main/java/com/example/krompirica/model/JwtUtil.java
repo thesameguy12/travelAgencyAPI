@@ -1,8 +1,5 @@
 package com.example.krompirica.model;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwt;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -67,5 +64,17 @@ public class JwtUtil {
         return (
                 username.equals(userDetails.getUsername()) && !isTokenExpired(token)
         );
+    }
+    public Boolean isTokenValid(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(SECRET_KEY)
+                    .build()
+                    .parseClaimsJws(token); // This throws an exception if the signature is invalid
+
+            return !isTokenExpired(token); // Return false if expired
+        } catch (JwtException | IllegalArgumentException e) {
+            return false; // If any parsing or validation fails, return false
+        }
     }
 }

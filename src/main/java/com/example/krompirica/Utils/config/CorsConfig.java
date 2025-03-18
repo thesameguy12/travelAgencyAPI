@@ -55,6 +55,7 @@ public class CorsConfig {
                         "Access-Control-Request-Headers"
                 )
         );
+        corsConfiguration.addAllowedOrigin("http://localhost:4200");
         corsConfiguration.setAllowedMethods(Arrays.asList(
                 "GET", "POST", "PUT", "DELETE", "OPTIONS"
         ));
